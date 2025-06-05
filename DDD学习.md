@@ -729,6 +729,12 @@ public class PayserviceImpl extends Payservice {
 
 - **Infrastructure（基础层）：**它主要存放基础资源服务相关的代码，为其它各层提供的通用技术能力、说白了就是全部都是实现类Impl。
 
+<img src="images/a0d6deff70b1b6d402091f6b98a0b607329839.png" alt="a0d6deff70b1b6d402091f6b98a0b607329839" style="zoom:50%;" />
+
+
+
+
+
 
 
 代码结构（仅作参考，可按各自项目实际情况来）：
@@ -902,7 +908,7 @@ Domain 是由一个或多个聚合包构成，共同实现领域模型的核心�
 
 ### 10.2 Repository规范
 
-**1、接口名称不应该使用底层实现的语法： find、save、remove**，我们常见的insert、select、update、delete都属于SQL语法，使用这几个词相当于和DB底层实现做了绑定。相反，我们应该把 Repository 当成一个中性的类 似Collection 的接口，使用语法如 find、save、remove。在这里特别需要指出的是区分 insert/add 和 update 本身也是一种和底层强绑定的逻辑，一些储存如缓存实际上不存在insert和update的差异，在这个 case 里，使用中性的 save 接口，然后在具体实现上根据情况调用 DAO 的 insert 或 update 接口。
+**1、接口名称不应该使用底层实现的语法： query/find、save、remove**，我们常见的insert、select、update、delete都属于SQL语法，使用这几个词相当于和DB底层实现做了绑定。相反，我们应该把 Repository 当成一个中性的类 似Collection 的接口，使用语法如 find、save、remove。在这里特别需要指出的是区分 insert/add 和 update 本身也是一种和底层强绑定的逻辑，一些储存如缓存实际上不存在insert和update的差异，在这个 case 里，使用中性的 save 接口，然后在具体实现上根据情况调用 DAO 的 insert 或 update 接口。
 
 **2、出参入参不应该使用底层数据格式**：需要记得的是 Repository 操作的是  **Entity 对象（实际上应该是Aggregate Root）**，而不应该直接操作底层的 DO 。更近一步，Repository 接口实际上应该存在于Domain层，根本看不到 DO 的实现。这个也是为了避免底层实现逻辑渗透到业务代码中的强保障。
 
